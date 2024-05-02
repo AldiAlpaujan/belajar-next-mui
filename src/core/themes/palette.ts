@@ -42,7 +42,7 @@ const Palette = (mode: any) => {
       ...paletteColor,
       text: {
         primary: paletteColor.grey[700],
-        secondary: paletteColor.grey[500],
+        secondary: paletteColor.grey[600],
         disabled: paletteColor.grey[400]
       },
       action: {
