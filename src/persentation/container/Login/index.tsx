@@ -6,6 +6,7 @@ import { Grid, Stack, Typography } from "@mui/material";
 
 // Components
 import AuthWrapper from "@/persentation/component/template/AuthWrapper";
+import FormLogin from "@/persentation/component/organism/Auth/FormLogin";
 
 const LoginView = () => {
   return (
@@ -22,6 +23,9 @@ const LoginView = () => {
               </Typography>
             </Link>
           </Stack>
+        </Grid>
+        <Grid item xs={12}>
+          <FormLogin />
         </Grid>
       </Grid>
     </AuthWrapper>

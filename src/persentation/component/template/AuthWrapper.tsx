@@ -7,7 +7,7 @@ import { Box, Grid } from "@mui/material";
 // Components
 import AuthBackground from "@/assets/images/auth/AuthBackground";
 import AppLogo from "@/persentation/component/atom/AppLogo";
-import AuthFooter from "@/persentation/component/organism/AuthFooter";
+import AuthFooter from "@/persentation/component/organism/Auth/AuthFooter";
 import AuthCard from "@/persentation/component/molecule/AuthCard";
 
 interface AuthWrapperProps {
