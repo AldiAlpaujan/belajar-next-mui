@@ -1,6 +1,7 @@
 "use client"
 
-import { Box } from "@mui/material";
+import Link from "next/link";
+import { Box, Checkbox, FormControlLabel, Stack, Typography } from "@mui/material";
 
 import AppTextField from "../../atom/AppTextField";
 
@@ -28,6 +29,18 @@ const FormLogin = () => {
         placeholder="Enter password"
         required
       />
+      <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
+        <FormControlLabel control={<Checkbox color="primary" />} label="Keep me sign in" />
+        <Link href={'#'} style={{ color: '#262626', textDecoration: 'none' }}>
+          <Typography sx={{
+            '&:hover': {
+              textDecoration: 'underline'
+            }
+          }}>
+            Forgot password?
+          </Typography>
+        </Link>
+      </Stack>
     </Box>
   );
 }
