@@ -21,6 +21,7 @@ import IconButton from "@mui/material/IconButton";
 interface AppTextFieldProps extends Omit<TextFieldProps, 'onChanged'> {
   labelStyle?: SxProps<Theme>,
   textFieldStyle?: SxProps<Theme>,
+  trigerVlidation?: boolean,
   onValueChanged?: (value: string) => void,
 }
 
@@ -40,6 +41,7 @@ const AppTextField = (props: AppTextFieldProps) => {
     error,
     sx,
     required,
+    trigerVlidation,
     onValueChanged,
   } = props;
 

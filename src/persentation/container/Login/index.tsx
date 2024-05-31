@@ -14,7 +14,7 @@ const LoginView = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} >
           <Stack direction="row" justifyContent={"space-between"} alignItems={"center"}>
-            <Typography variant="h4">
+            <Typography variant="h3">
               Login
             </Typography>
             <Link href={'/register'} style={{ textDecoration: "none" }}>
