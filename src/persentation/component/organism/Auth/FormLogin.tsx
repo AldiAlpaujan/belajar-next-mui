@@ -24,8 +24,8 @@ import AuthFirebaseSocial from "../../molecule/AuthFirebaseSocial";
 
 const FormLogin = () => {
   const validationSchema = yup.object().shape({
-    email: yup.string().required('Email is required').email('Must be a valid email'),
-    password: yup.string().required('Password is required'),
+    email: yup.string().required('Email is required').max(255).email('Must be a valid email'),
+    password: yup.string().required('Password is required').min(5, 'Password must be more than 5 letters'),
   });
 
   const onSubmit = (value: { email: string, password: string }) => {
@@ -90,7 +90,7 @@ const FormLogin = () => {
         fullWidth
         variant="contained"
         type="submit"
-        sx={{ fontSize: '16px', fontWeight: '600', py: '9px', mb: '24px' }}
+        sx={{ fontSize: '14px', fontWeight: '500', py: '9px', mb: '24px' }}
       >
         Login
       </Button>
