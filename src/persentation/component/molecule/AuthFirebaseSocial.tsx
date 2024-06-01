@@ -50,7 +50,7 @@ const SocialAuthCard = (props: {
       fullWidth
       variant="outlined"
       color="secondary"
-      startIcon={<Image src={props.iconSrc} alt={props.label} />}
+      startIcon={<Image priority src={props.iconSrc} alt={props.label} />}
       onClick={props.onClick}
     >
       {props.label}

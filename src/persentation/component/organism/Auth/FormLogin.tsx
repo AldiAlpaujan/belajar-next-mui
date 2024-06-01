@@ -1,7 +1,8 @@
 "use client"
 
-// Next
+// Next & React
 import Link from "next/link";
+import { ChangeEvent } from "react";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -12,44 +13,75 @@ import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
+// third party
+import { useFormik } from "formik";
+import * as yup from "yup";
+
 // component
 import AppTextField from "../../atom/AppTextField";
 import AuthFirebaseSocial from "../../molecule/AuthFirebaseSocial";
 
 
 const FormLogin = () => {
+  const validationSchema = yup.object().shape({
+    email: yup.string().required('Email is required').email('Must be a valid email'),
+    password: yup.string().required('Password is required'),
+  });
+
+  const onSubmit = (value: { email: string, password: string }) => {
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: onSubmit,
+  });
+
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { target } = event;
+    formik.setFieldValue(target.name, target.value);
+  }
+
+
   return (
     <Box
       component="form"
       noValidate
-      onSubmit={() => { }}
+      onSubmit={formik.handleSubmit}
     >
       <AppTextField
-        id="email"
-        name="Email"
+        id='email-login'
+        name="email"
         type="email"
         label="Email Address"
         placeholder="Enter email address"
+        value={formik.values.email}
+        onChange={handleOnChange}
+        onBlur={formik.handleBlur}
+        helperText={formik.touched.email && formik.errors.email}
         sx={{ pb: '24px' }}
         required
       />
       <AppTextField
-        id="pw"
-        name="Password"
+        id='pw-login'
+        name="password"
         type="password"
         label="Password"
         placeholder="Enter password"
+        value={formik.values.password}
+        onChange={handleOnChange}
+        onBlur={formik.handleBlur}
+        helperText={formik.touched.password && formik.errors.password}
         sx={{ pb: '14px' }}
         required
       />
       <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} sx={{ pb: '14px' }}>
         <FormControlLabel control={<Checkbox color="primary" />} label="Keep me sign in" />
-        <Link href={'#'} style={{ color: '#262626', textDecoration: 'none' }}>
-          <Typography sx={{
-            '&:hover': {
-              textDecoration: 'underline'
-            }
-          }}>
+        <Link href={'/forgot-password'} style={{ color: '#262626', textDecoration: 'none' }}>
+          <Typography sx={{ '&:hover': { textDecoration: 'underline' } }}>
             Forgot password?
           </Typography>
         </Link>
@@ -57,6 +89,7 @@ const FormLogin = () => {
       <Button
         fullWidth
         variant="contained"
+        type="submit"
         sx={{ fontSize: '16px', fontWeight: '600', py: '9px', mb: '24px' }}
       >
         Login
