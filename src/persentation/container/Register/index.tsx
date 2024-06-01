@@ -1,14 +1,28 @@
+"use client"
+
 // Next
 import Link from "next/link";
+import { useState } from "react";
 
 // MUI
-import { Grid, Stack, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
 // Components
 import AuthWrapper from "@/persentation/component/template/AuthWrapper";
-import FormRegister from "@/persentation/component/organism/Auth/FormRegister";
+import FormRegister, { FormRegisterModel } from "@/persentation/component/organism/Auth/FormRegister";
 
 const RegisterView = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit = (value: FormRegisterModel) => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }
+
   return (
     <AuthWrapper>
       <Grid container spacing={3}>
@@ -25,7 +39,7 @@ const RegisterView = () => {
           </Stack>
         </Grid>
         <Grid item xs={12}>
-          <FormRegister />
+          <FormRegister isLoading={isLoading} onSubmit={onSubmit} />
         </Grid>
       </Grid>
     </AuthWrapper>

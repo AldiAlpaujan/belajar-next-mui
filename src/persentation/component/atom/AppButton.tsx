@@ -1,20 +1,30 @@
 "use client"
-import { Button } from "@mui/material";
-import { ReactNode } from "react";
+import { LoadingButton, LoadingButtonProps } from "@mui/lab";
 
-interface AppBtnProps {
-  children?: ReactNode
-  onClick?: () => void,
+interface AppBtnProps extends LoadingButtonProps {
 }
 
-const AppButton = (props: AppBtnProps) => {
+const AppButton: React.FC<AppBtnProps> = ({ ...props }) => {
   return (
-    <Button
+    <LoadingButton
+      {...props}
       variant="contained"
-      sx={{ mb: 2 }}
-      onClick={props.onClick}>
+      sx={{
+        fontSize: '14px',
+        fontWeight: '500',
+        py: '9px',
+        mb: '24px',
+        '& .MuiCircularProgress-root': {
+          color: 'white',
+        },
+        '&:disabled': {
+          backgroundColor: props.loading ? 'primary.main' : null,
+        },
+      }}
+
+    >
       {props.children}
-    </Button>
+    </LoadingButton>
   );
 }
 

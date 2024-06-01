@@ -7,7 +7,6 @@ import { ChangeEvent } from "react";
 // MUI
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
@@ -19,25 +18,32 @@ import * as yup from "yup";
 
 // component
 import AppTextField from "../../atom/AppTextField";
+import AppButton from "../../atom/AppButton";
 import AuthFirebaseSocial from "../../molecule/AuthFirebaseSocial";
 
+export interface FormLoginModel {
+  email: string;
+  password: string;
+}
 
-const FormLogin = () => {
+interface FormLoginProps {
+  isLoading: boolean;
+  onSubmit: (v: FormLoginModel) => void;
+}
+
+const FormLogin = (props: FormLoginProps) => {
   const validationSchema = yup.object().shape({
     email: yup.string().required('Email is required').max(255).email('Must be a valid email'),
     password: yup.string().required('Password is required').min(5, 'Password must be more than 5 letters'),
   });
 
-  const onSubmit = (value: { email: string, password: string }) => {
-  }
-
-  const formik = useFormik({
+  const formik = useFormik<FormLoginModel>({
     initialValues: {
       email: '',
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: onSubmit,
+    onSubmit: props.onSubmit,
   });
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -86,14 +92,9 @@ const FormLogin = () => {
           </Typography>
         </Link>
       </Stack>
-      <Button
-        fullWidth
-        variant="contained"
-        type="submit"
-        sx={{ fontSize: '14px', fontWeight: '500', py: '9px', mb: '24px' }}
-      >
+      <AppButton fullWidth loading={props.isLoading} type="submit">
         Login
-      </Button>
+      </AppButton>
       <Divider sx={{ mb: "24px" }}>
         <Typography variant="caption">Login with</Typography>
       </Divider>

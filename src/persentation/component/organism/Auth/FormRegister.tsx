@@ -6,7 +6,6 @@ import { ChangeEvent, useState } from "react";
 
 // MUI
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
@@ -15,13 +14,27 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 // component
+import AppButton from "../../atom/AppButton";
 import AppTextField from "../../atom/AppTextField";
 
 // Types / Function
 import PasswordLevel from "@/core/types/password-level";
 import { getStrengthPassword } from "@/core/utils/password-strength";
 
-const FormRegister = () => {
+export interface FormRegisterModel {
+  firstname: string;
+  lastname: string;
+  company: string;
+  email: string;
+  password: string;
+}
+
+interface FormRegisterProps {
+  isLoading: boolean;
+  onSubmit: (v: FormRegisterModel) => void;
+}
+
+const FormRegister = (props: FormRegisterProps) => {
   const [pwLevel, setPwLevel] = useState<PasswordLevel>(getStrengthPassword(''));
 
   const validationSchema = yup.object().shape({
@@ -31,7 +44,7 @@ const FormRegister = () => {
     password: yup.string().required('Password is required'),
   })
 
-  const formik = useFormik({
+  const formik = useFormik<FormRegisterModel>({
     initialValues: {
       firstname: '',
       lastname: '',
@@ -40,7 +53,7 @@ const FormRegister = () => {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (v) => { }
+    onSubmit: props.onSubmit,
   });
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -148,14 +161,9 @@ const FormRegister = () => {
         </Link>
       </Typography>
 
-      <Button
-        fullWidth
-        variant="contained"
-        type="submit"
-        sx={{ fontSize: '14px', fontWeight: '500', py: '9px', mb: '24px' }}
-      >
+      <AppButton fullWidth loading={props.isLoading} type="submit">
         Create Account
-      </Button>
+      </AppButton>
 
     </Box>
   );
